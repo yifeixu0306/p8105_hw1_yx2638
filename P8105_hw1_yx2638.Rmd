@@ -138,3 +138,76 @@ ggsave("hw1_scatterplot.pdf", plot = penguine_plot)
 
 ```
 
+
+# Problem 2
+
+## Create a dataframe
+```{r}
+df = tibble (
+        vec_norm = rnorm(n = 10),
+        vec_log = vec_norm > 8,
+        vec_char = c("a", "b", "c", "d","e","f","g","h","i","j"),
+        vec_fac = c("High", "Low", "Medium", "High", "Low", "Low", "Medium", "High", "Low", "Medium")
+)
+```
+
+## Take the mean of each variable in the dataframe
+```{r}
+# mean of the random sample from standard normal distribution
+mean_norm = df %>%
+        pull(vec_norm) %>%
+        mean()
+
+# mean of logical vector
+mean_log = df %>%
+        pull(vec_log) %>%
+        mean()
+
+# mean of character vector
+mean_char = df %>%
+        pull(vec_char) %>%
+        mean()
+
+# mean of factor vector
+mean_fac = df %>%
+        pull(vec_fac) %>%
+        mean()
+```
+When calculating the mean, the numeric and logical vector works while the character and factor vector fail to work.
+
+## Convert variables to numeric
+```{r}
+# convert mean of logical vector
+mean_log_num = df %>%
+        pull(vec_log) %>%
+        as.numeric() %>%
+        mean()
+
+# mean of character vector
+mean_char_num = df %>%
+        pull(vec_char) %>%
+        as.numeric() %>%
+        mean()
+
+# mean of factor vector
+mean_fac_num = df %>%
+        pull(vec_fac) %>%
+        as.numeric() %>%
+        mean()
+```
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
