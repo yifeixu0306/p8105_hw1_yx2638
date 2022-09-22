@@ -147,7 +147,7 @@ df = tibble (
         vec_norm = rnorm(n = 10),
         vec_log = vec_norm > 8,
         vec_char = c("a", "b", "c", "d","e","f","g","h","i","j"),
-        vec_fac = c("High", "Low", "Medium", "High", "Low", "Low", "Medium", "High", "Low", "Medium")
+        vec_fac = factor(c("High", "Low", "Medium", "High", "Low", "Low", "Medium", "High", "Low", "Medium"))
 )
 ```
 
@@ -177,37 +177,23 @@ When calculating the mean, the numeric and logical vector works while the charac
 
 ## Convert variables to numeric
 ```{r}
-# convert mean of logical vector
+# convert logical variable to numeric and calculate the mean
 mean_log_num = df %>%
         pull(vec_log) %>%
         as.numeric() %>%
         mean()
 
-# mean of character vector
+# convert character variable to numeric and calculate the mean
 mean_char_num = df %>%
         pull(vec_char) %>%
         as.numeric() %>%
         mean()
 
-# mean of factor vector
+# convert factor variable to numeric and calculate the mean
 mean_fac_num = df %>%
         pull(vec_fac) %>%
         as.numeric() %>%
         mean()
 ```
-
-
-```
-
-
-
-
-
-
-
-
-
-
-
-
+After converting to numeric, the `mean` function can work for logical and factor vector. Howeverm it still fails to work for character vector. This is because the `as.numeric` function sets TRUE to 1 and FALSE to 0 for the logical vector and sets "High" to 1, "Low" to 2, "Medium" to 3 for the factor vector. All values in character vector return NA.
 
