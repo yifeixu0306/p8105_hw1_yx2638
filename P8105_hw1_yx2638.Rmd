@@ -1,0 +1,140 @@
+---
+title: "p8105_hw1_yx2638"
+author: "Yifei Xu"
+date: "2022-09-20"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+# Problem 1
+
+## Load the penguins dataset
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+## Write a short description of the penguins dataset 
+```{r}
+# names / values of important variables
+variable_name = names(penguins)
+species_name = levels(penguins$species)
+island_name = levels(penguins$island)
+sex_name = levels(penguins$sex)
+
+## number of each species
+n_adelie = sum(pull(penguins, species) == "Adelie")
+n_gentoo = sum(pull(penguins, species) == "Gentoo")
+n_hinstrap = sum(pull(penguins, species) == "Chinstrap")
+
+## bill length
+mean_bill_length = penguins %>%
+        drop_na() %>%
+        pull(bill_length_mm) %>%
+        mean() %>%
+        round(digits = 1)
+
+max_bill_length = penguins %>%
+        drop_na() %>%
+        pull(bill_length_mm) %>%
+        max() 
+
+min_bill_length = penguins %>%
+        drop_na() %>%
+        pull(bill_length_mm) %>%
+        min() 
+        
+ ## bill depth
+mean_bill_depth = penguins %>%
+        drop_na() %>%
+        pull(bill_depth_mm) %>%
+        mean() %>%
+        round(digits = 1)
+
+max_bill_depth = penguins %>%
+        drop_na() %>%
+        pull(bill_depth_mm) %>%
+        max() 
+
+min_bill_depth = penguins %>%
+        drop_na() %>%
+        pull(bill_depth_mm) %>%
+        min() 
+        
+ ## flipper length
+mean_flipper_length = penguins %>%
+        drop_na() %>%
+        pull(flipper_length_mm) %>%
+        mean() %>%
+        round(digits = 0)
+
+max_flipper_length = penguins %>%
+        drop_na() %>%
+        pull(flipper_length_mm) %>%
+        max() 
+
+min_flipper_length = penguins %>%
+        drop_na() %>%
+        pull(flipper_length_mm) %>%
+        min() 
+
+## body mass
+mean_body_mass = penguins %>%
+        drop_na() %>%
+        pull(body_mass_g) %>%
+        mean() %>%
+        round(digits = 0)
+
+max_body_mass = penguins %>%
+        drop_na() %>%
+        pull(body_mass_g) %>%
+        max() 
+
+min_body_mass = penguins %>%
+        drop_na() %>%
+        pull(body_mass_g) %>%
+        min() 
+        
+ 
+# size of the dataset 
+row = nrow(penguins)
+col = ncol(penguins)
+
+# mean flipper length
+mean_flipper_length = penguins %>%
+        drop_na() %>%
+        pull(flipper_length_mm) %>%
+        mean() %>%
+        round(digits = 2)
+```
+There are `r col` variables in this dataset: `r variable_name`.
+
+The levels of species are `r species_name`, the levels of island are `r island_name` and the levels of sex are `r sex_name`.
+
+For the species, there are `r n_adelie` Adelie penguins, `r n_gentoo` Gentoo penguins and `r n_hinstrap` H Instrap penguins in this dataset.
+
+The mean of bill length is `r mean_bill_length` mm, the maximum is `r max_bill_length` mm and the minimum is `r min_bill_length` mm.
+
+The mean of bill depth is `r mean_bill_depth` mm, the maximum is `r max_bill_depth` mm and the minimum is `r min_bill_depth` mm.
+
+The mean of flipper length is `r mean_flipper_length` mm, the maximum is `r max_flipper_length` mm and the minimum is `r min_flipper_length` mm.
+
+The mean of body mass is `r mean_body_mass` g, the maximum is `r max_body_mass` g and the minimum is `r min_body_mass` g.
+
+Totally, there are `r row` rows and `r col` columns in the dataset. 
+
+
+## Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x)
+```{r}
+# draw the plot
+penguine_plot = penguins %>%
+        drop_na() %>%
+        ggplot(aes(x = bill_length_mm, y = flipper_length_mm)) +  geom_point(aes(color = species))
+
+# save the plot
+ggsave("hw1_scatterplot.pdf", plot = penguine_plot)
+
+```
+
