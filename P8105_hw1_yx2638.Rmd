@@ -145,14 +145,14 @@ ggsave("hw1_scatterplot.pdf", plot = penguine_plot)
 ```{r}
 df = tibble (
         vec_norm = rnorm(n = 10),
-        vec_log = vec_norm > 8,
+        vec_log = vec_norm > 0,
         vec_char = c("a", "b", "c", "d","e","f","g","h","i","j"),
         vec_fac = factor(c("High", "Low", "Medium", "High", "Low", "Low", "Medium", "High", "Low", "Medium"))
 )
 ```
 
 ## Take the mean of each variable in the dataframe
-```{r}
+```{r, message=FALSE}
 # mean of the random sample from standard normal distribution
 mean_norm = df %>%
         pull(vec_norm) %>%
@@ -195,5 +195,5 @@ mean_fac_num = df %>%
         as.numeric() %>%
         mean()
 ```
-After converting to numeric, the `mean` function can work for logical and factor vector. Howeverm it still fails to work for character vector. This is because the `as.numeric` function sets TRUE to 1 and FALSE to 0 for the logical vector and sets "High" to 1, "Low" to 2, "Medium" to 3 for the factor vector. All values in character vector return NA.
+After converting to numeric, the `mean` function can work for logical and factor vector. However, it still fails to work for character vector. This is because the `as.numeric` function sets TRUE to 1 and FALSE to 0 for the logical vector and sets "High" to 1, "Low" to 2, "Medium" to 3 for the factor vector. All values in character vector return NA.
 
